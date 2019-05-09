@@ -16,8 +16,8 @@ class BlockedQueue(Queue):
         super().__init__(maxsize, ctx=multiprocessing.get_context())
 
 #ctx = multiprocessing.get_context()
-
-test = ["Question Id", "Best Answer Id","Questioner User Id"]
+test = ['id', 'acceptedanswerid', 'CreationDate', 'Score', 'ViewCount', 'OwnerUserId', 'LastEditorUserId', 'LastEditDate', 'LastActivityDate', 'AnswerCount', 'CommentCount', 'FavoriteCount', 'title_text', 'body_text']
+# test = ["Question Id", "Best Answer Id","Questioner User Id"]
 with open('Questions.csv', 'w') as csvFile:
     writer = csv.writer(csvFile)
     writer.writerow(test)
@@ -118,7 +118,7 @@ def parse(post):
 
     mutex.acquire()
     if id is not None:
-        mohla = [soup.row["id"],ans,OwnerUserId]
+        mohla = [id, ans, CreationDate, Score, ViewCount, OwnerUserId, LastEditorUserId, LastEditDate, LastActivityDate, AnswerCount, CommentCount, FavoriteCount, title_text, body_text]
 
         with open('Questions.csv', 'a') as csvFile:
             writer = csv.writer(csvFile)
@@ -158,7 +158,7 @@ def collector(queue_out):
     N = len(data)
     for i in range(N):
         assert i == 0 or data[i][0] > data[i-1][0]
-        say("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(*data[i]), stream=sys.stdout)
+        #say("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(*data[i]), stream=sys.stdout)
 
 if len(sys.argv) != 2:
     say("Usage:\n")

@@ -21,7 +21,9 @@ class BlockedQueue(Queue):
         super().__init__(maxsize, ctx=multiprocessing.get_context())
 
 
-test = ["Answer Id", "Question Id","Answerer User Id"]
+test = ['id', 'ParentId', 'CreationDate', 'Score', 'OwnerUserId', 'LastEditorUserId', 'LastEditDate', 'LastActivityDate', 'CommentCount', 'title_text', 'body_text']
+
+# test = ["Answer Id", "Question Id","Answerer User Id"]
 with open('Answers.csv', 'w') as csvFile:
     writer = csv.writer(csvFile)
     writer.writerow(test)
@@ -110,7 +112,7 @@ def parse(post):
     assert "\n" not in body_text
     mutex.acquire()
     if id is not None:
-        mohla = [soup.row["id"],soup.row["parentid"],OwnerUserId]
+        mohla = [id, ParentId, CreationDate, Score, OwnerUserId, LastEditorUserId, LastEditDate, LastActivityDate, CommentCount, title_text, body_text]
 
         with open('Answers.csv', 'a') as csvFile:
             writer = csv.writer(csvFile)
@@ -147,7 +149,8 @@ def collector(queue_out):
     N = len(data)
     for i in range(N):
         assert i == 0 or data[i][0] > data[i-1][0]
-        say("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(*data[i]), stream=sys.stdout)
+
+        #say("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(*data[i]), stream=sys.stdout)
 
 if len(sys.argv) != 2:
     say("Usage:\n")
